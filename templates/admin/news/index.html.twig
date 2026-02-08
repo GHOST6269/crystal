@@ -1,0 +1,42 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block admin_body %}
+  <div class="card">
+    <div class="header-row">
+      <h2>Actualités</h2>
+      <a class="btn" href="{{ path('admin_news_new') }}">Ajouter</a>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Ordre</th>
+          <th>Date</th>
+          <th>Titre</th>
+          <th>Détail</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in news %}
+          <tr>
+            <td>{{ item.position }}</td>
+            <td>{{ item.dateLabel }}</td>
+            <td>{{ item.title }}</td>
+            <td>{{ item.detail }}</td>
+            <td>
+              <a class="btn secondary" href="{{ path('admin_news_edit', {id: item.id}) }}">Modifier</a>
+              <form method="post" action="{{ path('admin_news_delete', {id: item.id}) }}" style="display:inline;">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-news-' ~ item.id) }}">
+                <button class="btn" type="submit">Supprimer</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="5">Aucune actualité.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - Crystal Liste{% endblock %}
+
+{% block stylesheets %}
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap");
+  :root {
+    --bg: #f6f3ee;
+    --card: #ffffff;
+    --text: #1e1e1e;
+    --muted: #6b6b6b;
+    --accent: #d46a3a;
+  }
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+  }
+  .admin-shell {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: 100vh;
+  }
+  .admin-nav {
+    background: #171717;
+    color: #fff;
+    padding: 24px 16px;
+  }
+  .admin-nav h1 {
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+  }
+  .admin-nav a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+  }
+  .admin-nav a:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  .admin-main {
+    padding: 32px 40px;
+  }
+  .card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  }
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 12px;
+  }
+  .btn {
+    background: var(--accent);
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+  }
+  .btn.secondary {
+    background: #2f2f2f;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 8px;
+    border-bottom: 1px solid #e6e0d7;
+  }
+  th {
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .flash {
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    background: #e8f5ea;
+    color: #2a5d34;
+  }
+  .form-grid {
+    display: grid;
+    gap: 16px;
+  }
+  input, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d9d2c7;
+    font-family: inherit;
+  }
+  label {
+    font-weight: 600;
+  }
+  @media (max-width: 900px) {
+    .admin-shell {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="admin-shell">
+  <aside class="admin-nav">
+    <h1>Crystal Admin</h1>
+    <a href="{{ path('admin_index') }}">Dashboard</a>
+    <a href="{{ path('admin_site_content_edit') }}">Contenu principal</a>
+    <a href="{{ path('admin_service_index') }}">Services</a>
+    <a href="{{ path('admin_shop_index') }}">Boutiques</a>
+    <a href="{{ path('admin_tariff_index') }}">Tarifs</a>
+    <a href="{{ path('admin_gallery_index') }}">Galerie</a>
+    <a href="{{ path('admin_news_index') }}">Actualités</a>
+    <a href="{{ path('admin_download_index') }}">Téléchargements PDF</a>
+    <a href="{{ path('admin_logout') }}">Déconnexion</a>
+  </aside>
+  <main class="admin-main">
+    {% for label, messages in app.flashes %}
+      {% for message in messages %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
+    {% endfor %}
+    {% block admin_body %}{% endblock %}
+  </main>
+</div>
+{% endblock %}

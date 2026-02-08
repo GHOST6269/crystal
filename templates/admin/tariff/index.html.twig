@@ -1,0 +1,40 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block admin_body %}
+  <div class="card">
+    <div class="header-row">
+      <h2>Tarifs</h2>
+      <a class="btn" href="{{ path('admin_tariff_new') }}">Ajouter</a>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Ordre</th>
+          <th>Libellé</th>
+          <th>Prix</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tariff in tariffs %}
+          <tr>
+            <td>{{ tariff.position }}</td>
+            <td>{{ tariff.label }}</td>
+            <td>{{ tariff.price }}</td>
+            <td>
+              <a class="btn secondary" href="{{ path('admin_tariff_edit', {id: tariff.id}) }}">Modifier</a>
+              <form method="post" action="{{ path('admin_tariff_delete', {id: tariff.id}) }}" style="display:inline;">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-tariff-' ~ tariff.id) }}">
+                <button class="btn" type="submit">Supprimer</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="4">Aucun tarif.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

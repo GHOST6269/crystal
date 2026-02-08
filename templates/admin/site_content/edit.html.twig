@@ -1,0 +1,22 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block admin_body %}
+  <div class="card">
+    <div class="header-row">
+      <h2>Contenu principal</h2>
+    </div>
+    {{ form_start(form) }}
+      <div class="form-grid">
+        {{ form_row(form.heroTitle) }}
+        {{ form_row(form.heroSubtitle) }}
+        {{ form_row(form.heroDescription) }}
+        {{ form_row(form.phone) }}
+        {{ form_row(form.whatsapp) }}
+        {{ form_row(form.email) }}
+      </div>
+      <div style="margin-top: 20px;">
+        <button class="btn" type="submit">Enregistrer</button>
+      </div>
+    {{ form_end(form) }}
+  </div>
+{% endblock %}

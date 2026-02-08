@@ -1,0 +1,40 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block admin_body %}
+  <div class="card">
+    <div class="header-row">
+      <h2>Téléchargements PDF</h2>
+      <a class="btn" href="{{ path('admin_download_new') }}">Ajouter</a>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Ordre</th>
+          <th>Titre</th>
+          <th>Fichier</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+          <tr>
+            <td>{{ item.position }}</td>
+            <td>{{ item.title }}</td>
+            <td>{{ item.filePath }}</td>
+            <td>
+              <a class="btn secondary" href="{{ path('admin_download_edit', {id: item.id}) }}">Modifier</a>
+              <form method="post" action="{{ path('admin_download_delete', {id: item.id}) }}" style="display:inline;">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-download-' ~ item.id) }}">
+                <button class="btn" type="submit">Supprimer</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="4">Aucun fichier.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block admin_body %}
+  <div class="card">
+    <div class="header-row">
+      <h2>Boutiques</h2>
+      <a class="btn" href="{{ path('admin_shop_new') }}">Ajouter</a>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Ordre</th>
+          <th>Nom</th>
+          <th>Adresse</th>
+          <th>Horaires</th>
+          <th>Focus</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for shop in shops %}
+          <tr>
+            <td>{{ shop.position }}</td>
+            <td>{{ shop.name }}</td>
+            <td>{{ shop.address }}</td>
+            <td>{{ shop.hours }}</td>
+            <td>{{ shop.focus }}</td>
+            <td>
+              <a class="btn secondary" href="{{ path('admin_shop_edit', {id: shop.id}) }}">Modifier</a>
+              <form method="post" action="{{ path('admin_shop_delete', {id: shop.id}) }}" style="display:inline;">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-shop-' ~ shop.id) }}">
+                <button class="btn" type="submit">Supprimer</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="6">Aucune boutique.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

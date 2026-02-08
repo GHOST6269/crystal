@@ -1,0 +1,10 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block admin_body %}
+  <div class="card">
+    <div class="header-row">
+      <h2>Nouvelle actualité</h2>
+    </div>
+    {% include 'admin/news/_form.html.twig' with {form: form} %}
+  </div>
+{% endblock %}
